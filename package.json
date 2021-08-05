@@ -1,19 +1,18 @@
 {
   "name": "sm-echarts",
-  "version": "0.0.1",
+  "version": "1.0.3",
   "description": "A smart echarts library for React.",
   "files": [
     "es",
     "lib",
-    "dist",
-    "build"
+    "dist"
   ],
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
     "start": "styleguidist server",
     "build": "build-scripts build --skip-demo",
-    "build-docs": "styleguidist build",
+    "build-docs": "rm -rf build/*  && styleguidist build",
     "prepublishOnly": "node ./scripts/update-version.js && npm run build",
     "eslint": "eslint --cache --ext .js,.jsx ./",
     "eslint:fix": "npm run eslint -- --fix",
@@ -64,5 +63,7 @@
   "author": {
     "email": "luyantaoforever@163.com",
     "name": "LuYantao"
-  }
+  },
+  "homepage": "http://sm-echarts.webjs.fun",
+  "repository": "https://github.com/yantaolu/sm-echarts"
 }
