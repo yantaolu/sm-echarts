@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "build-plugin-component"
+  ],
+  "externals": [
+    "react",
+    "react-dom",
+    "echarts"
+  ],
+  "babelOptions": [
+    {
+      "name": "@babel/preset-env",
+      "options": {
+        "targets": {
+          "edge": "13",
+          "firefox": "1",
+          "chrome": "51",
+          "safari": "11.1",
+          "ie": "9"
+        },
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }
+    }
+  ],
+  "filename": "index",
+  "library": "SmECharts",
+  "libraryTarget": "umd"
+}

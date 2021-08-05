@@ -1,0 +1,13 @@
+# 忽略目录
+build/
+node_modules/
+dist/
+es/
+lib/
+scripts/
+docs/
+test/
+styleguide.config.js
+**/*-min.js
+**/*.min.js
+coverage/
