@@ -40,7 +40,7 @@ yarn add sm-echarts -S
 |multi|boolean|false|同一类型多组数据渲染，data 接收二维数组合并后有多组 series|
 |rotateAxis|boolean|false|旋转坐标轴，默认 xAxis 及 yAxis 的属性互换|
 |debug|boolean|false|控制台输出合并后的 option 方便调试|
-|onEvents|Record<string, EventHandler | EventHandler[]>||1.0.4 新增，提供 ehcarts 实例绑定事件方式，内部会在更新/卸载时自动解绑|
+|onEvents|Record<string, EventHandler｜EventHandler[]>||`1.0.4 新增`，提供 ehcarts 实例绑定事件方式，内部会在更新/卸载时自动解绑|
 
 </div>
 
