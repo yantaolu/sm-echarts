@@ -8,7 +8,7 @@ npm install sm-echarts -S
 yarn add sm-echarts -S
 ```
 
-#### 使用优势
+#### 特点
 
 1. 使用 `TypeScript` 封装，编辑器智能提醒，再也不用刷 <a href="https://echarts.apache.org/zh/option.html#title" target="_blank">echarts</a> 文档了
 2. 开发使用 `React 0.14` 构建 class 组件，可保证各种 React 版本的兼容
@@ -40,6 +40,7 @@ yarn add sm-echarts -S
 |multi|boolean|false|同一类型多组数据渲染，data 接收二维数组合并后有多组 series|
 |rotateAxis|boolean|false|旋转坐标轴，默认 xAxis 及 yAxis 的属性互换|
 |debug|boolean|false|控制台输出合并后的 option 方便调试|
+|onEvents|Record<string, EventHandler | EventHandler[]>||1.0.4 新增，提供 ehcarts 实例绑定事件方式，内部会在更新/卸载时自动解绑|
 
 </div>
 
@@ -137,7 +138,70 @@ const [data, setData] = useState([7, 9, 5, 3, 10]);
   onMouseLeave={() => setData([7, 9, 5, 3, 10])}
 >
   <SmECharts
-    type={'line'} category={[1, 2, 3, 4, 5]} data={data} />
+    type={'line'} category={[1, 2, 3, 4, 5]} data={data}
+    onEvents={{
+      click: () => {
+        alert('点击了折线图')
+      }
+    }}
+  />
+</div>
+```
+
+#### echarts 事件绑定
+
+> 关于事件类型及绑定事件方式，请参照 <a href="https://echarts.apache.org/zh/api.html#echartsInstance.on" target="_blank">echarts官方文档</a>，
+> 事件绑定也可以利用 ref 获取组件内 echarts 实例属性 `echartsInstance`
+
+```jsx
+import SmECharts from 'sm-echarts';
+
+<div className={'chart-container'}>
+  <div className='chart-wrapper'>
+    <SmECharts
+      type={'line'}
+      // ref={chart => console.log(chart.echartsInstance)}
+      option={{
+        title: {
+          show: true,
+          text: '点击折线图',
+          left: 'center',
+        }
+      }}
+      onEvents={{
+        click: () => {
+          alert('点击了折线图')
+        }
+      }}
+      category={[1, 2, 3, 4, 5]}
+      data={[7, 9, 5, 3, 10]} />
+  </div>
+  <div className='chart-wrapper'>
+    <SmECharts
+      type={['line', 'bar']}
+      option={{
+        title: {
+          show: true,
+          text: '分别点击折线图/柱状图',
+          left: 'center',
+        }
+      }}
+      onEvents={{
+        click: [
+          ['xAxis.category', () => {
+            alert('点击了xAxis.category')
+          }],
+          ['series.bar', () => {
+            alert('点击了柱状图')
+          }],
+          ['series.line', () => {
+            alert('点击了折线图')
+          }]
+        ]
+      }}
+      category={[1, 2, 3, 4, 5]}
+      data={[[7, 9, 5, 3, 10], [3, 5, 7, 6, 3]]} />
+  </div>
 </div>
 ```
 

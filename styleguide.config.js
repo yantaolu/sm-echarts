@@ -29,7 +29,7 @@ module.exports = {
   sections: [
     {
       name: '介绍',
-      content: 'docs/introduction.md',
+      content: 'README.md',
     },
   ],
   require: [
