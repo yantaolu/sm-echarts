@@ -1,14 +1,9 @@
-#### 使用
+#### `最新更新` - v1.0.6
 
-```shell
-# 使用npm安装
-npm install sm-echarts -S
+1. 组件dom根节点支持绑定鼠标相关事件，props传入
+2. 增加初始化、销毁、设置option前、设置option后的钩子
 
-# 使用yarn安装
-yarn add sm-echarts -S
-```
-
-#### 特点
+#### `特点`
 
 1. 使用 `TypeScript` 封装，编辑器智能提醒，再也不用刷 <a href="https://echarts.apache.org/zh/option.html#title" target="_blank">echarts</a> 文档了
 2. 开发使用 `React 0.14` 构建 class 组件，可保证各种 React 版本的兼容
@@ -16,7 +11,7 @@ yarn add sm-echarts -S
 4. 将 `option` 中常用属性提到 props 中，不需要一层一层的嵌套配置，使用更加简单，同时内置智能合并逻辑，可以将 option 中的配置和 props 的配置进行合并，props 中的优先级更高
 5. 内置 `resize` 监听逻辑，自动重绘
 
-#### SmECharts Props
+#### `SmECharts Props`
 
 <div class="serv-api-table">
 
@@ -41,6 +36,10 @@ yarn add sm-echarts -S
 |rotateAxis|boolean|false|旋转坐标轴，默认 xAxis 及 yAxis 的属性互换|
 |debug|boolean|false|控制台输出合并后的 option 方便调试|
 |onEvents|Record<string, EventHandler｜EventHandler[]>||`1.0.4 新增`，提供 ehcarts 实例绑定事件方式，内部会在更新/卸载时自动解绑|
+|onInit|(ins: SmECharts) => void||`1.0.6 新增`，完成初始化 echarts 钩子|
+|onDestroy|(ins: SmECharts) => void||`1.0.6 新增`，销毁 echarts 钩子|
+|beforeSetOption|(ins: SmECharts) => void||`1.0.6 新增`，每次 echarts.setOption 前钩子|
+|afterSetOption|(ins: SmECharts) => void||`1.0.6 新增`，每次 echarts.setOption 后钩子|
 
 </div>
 
@@ -188,9 +187,6 @@ import SmECharts from 'sm-echarts';
       }}
       onEvents={{
         click: [
-          ['xAxis.category', () => {
-            alert('点击了xAxis.category')
-          }],
           ['series.bar', () => {
             alert('点击了柱状图')
           }],
@@ -240,3 +236,15 @@ SmECharts.defaultAxis = {
   },
 };
 ```
+
+#### 更新日志
+
+- `1.0.6`
+  1. 组件dom根节点支持绑定鼠标相关事件，props传入
+  2. 增加初始化、销毁、设置option前、设置option后的钩子
+
+- `1.0.5`
+  1. 增加 echarts 事件绑定机制
+
+- `1.0.0`
+  1. 完成React Ts版封装
