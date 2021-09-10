@@ -1,7 +1,8 @@
-#### `最新更新` - v1.0.6
+#### `最新更新`
 
-1. 组件dom根节点支持绑定鼠标相关事件，props传入
-2. 增加初始化、销毁、设置option前、设置option后的钩子
+- `1.0.7`
+
+  1. 增加通过接口获取数据的props，不再需要外部管理数据状态
 
 #### `特点`
 
@@ -40,6 +41,7 @@
 |onDestroy|(ins: SmECharts) => void||`1.0.6 新增`，销毁 echarts 钩子|
 |beforeSetOption|(ins: SmECharts) => void||`1.0.6 新增`，每次 echarts.setOption 前钩子|
 |afterSetOption|(ins: SmECharts) => void||`1.0.6 新增`，每次 echarts.setOption 后钩子|
+|fetchData|() => (any[]｜Promise<any[]>)||`1.0.7 新增`，使用函数获取数据|
 
 </div>
 
@@ -60,6 +62,29 @@ import SmECharts from 'sm-echarts';
   </div>
   <div className='chart-wrapper'>
     <SmECharts type={'gauge'} data={[7, 9, 5, 3, 10]} />
+  </div>
+</div>
+```
+
+#### 获取数据 - fetchData
+
+```jsx
+import { useCallback } from 'react';
+import SmECharts from 'sm-echarts';
+
+// 异步获取数据
+const fetchData = useCallback(() => new Promise(resolve => setTimeout(() => {
+  resolve([7, 9, 5, 3, 10]);
+}, 300)), []);
+
+<div className={'chart-container'}>
+  <div className='chart-wrapper'>
+    {/* 异步获取数据 */}
+    <SmECharts chartType={'line'} category={[1, 2, 3, 4, 5]} fetchData={fetchData} />
+  </div>
+  <div className='chart-wrapper'>
+    {/* 同步获取数据 */}
+    <SmECharts chartType={'bar'} category={[1, 2, 3, 4, 5]} fetchData={() => [7, 9, 5, 3, 10]} />
   </div>
 </div>
 ```
@@ -239,12 +264,19 @@ SmECharts.defaultAxis = {
 
 #### 更新日志
 
+- `1.0.7`
+
+  1. 增加通过接口获取数据的props，不再需要外部管理数据状态
+
 - `1.0.6`
+
   1. 组件dom根节点支持绑定鼠标相关事件，props传入
   2. 增加初始化、销毁、设置option前、设置option后的钩子
 
 - `1.0.5`
+
   1. 增加 echarts 事件绑定机制
 
 - `1.0.0`
+
   1. 完成React Ts版封装

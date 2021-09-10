@@ -61,6 +61,7 @@ export default class SmECharts extends React.Component<SmEChartsProps, any> {
 
   constructor(props: SmEChartsProps) {
     super(props);
+    this.state = { data: [] };
   }
 
   /**
@@ -80,7 +81,8 @@ export default class SmECharts extends React.Component<SmEChartsProps, any> {
   }
 
   private getMergedSeries(): SeriesOption[] {
-    const { option = {}, series, multi, data, type } = this.props;
+    const { option = {}, series, multi, type } = this.props;
+    const data = this.props.data ?? this.state.data;
     const dataArr = Array.isArray(type) || multi ? data : [data];
     let types = Array.isArray(type) ? type : [type];
 
@@ -205,6 +207,17 @@ export default class SmECharts extends React.Component<SmEChartsProps, any> {
     });
   };
 
+  private async fetchData() {
+    if (this.props.fetchData) {
+      try {
+        const data = await this.props.fetchData();
+        this.setState({ data: data || [] });
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+  }
+
   componentDidMount() {
     // @ts-ignore
     this.echartsInstance = SmECharts.echarts.init(this.$root);
@@ -213,6 +226,7 @@ export default class SmECharts extends React.Component<SmEChartsProps, any> {
     this.bindEvens();
     // 监听resize
     EventUtil.addEventListener(ResizeEvent, this.handleWindowResize);
+    this.fetchData();
   }
 
   componentDidUpdate(prevProps: SmEChartsProps) {

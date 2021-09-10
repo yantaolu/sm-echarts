@@ -114,4 +114,6 @@ export type SmEChartsProps = {
   afterSetOption?: (instance: SmECharts) => void;
   // 销毁钩子
   onDestroy?: (instance: SmECharts) => void;
+  // 获取数据
+  fetchData?: () => (any[] | Promise<any[]>);
 } & MouseEvents<HTMLDivElement>;
